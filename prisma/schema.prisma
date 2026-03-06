@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+}
+
+model user {
+  id       Int       @id @default(autoincrement())
+  email    String    @unique @db.VarChar(255)
+  password String    @db.VarChar(255)
+
+  vehicles vehicle[]
+}
+
+model vehicle {
+  id       Int              @id @default(autoincrement())
+  mark     String           @db.VarChar(255)
+  model    String           @db.VarChar(255)
+  year     Int?
+  plate    String?          @db.VarChar(10)
+  color    String?          @db.VarChar(50)
+  value    Decimal          @db.Decimal(15, 2)
+  type     String?          @db.VarChar(50)
+  status   String?          @db.VarChar(50)
+  user_id  Int
+  user     user             @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  vehicle_photos vehicle_photos[]
+}
+
+model vehicle_photos {
+  id         Int     @id @default(autoincrement())
+  vehicle_id Int
+  url        String  @db.LongText
+  vehicle    vehicle @relation(fields: [vehicle_id], references: [id], onDelete: Cascade)
+
+  @@index([vehicle_id])
+}
