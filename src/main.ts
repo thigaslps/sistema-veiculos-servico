@@ -11,16 +11,13 @@ async function bootstrap() {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  // Lista de origens permitidas
   const allowedOrigins = [
     'http://localhost:9000',
     'https://vehiclessystemdatapage.netlify.app',
   ];
 
-  // Habilita CORS para múltiplas origens
   app.enableCors({
     origin: (origin, callback) => {
-      // Permite requests sem origin (curl, Postman)
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -28,7 +25,7 @@ async function bootstrap() {
       }
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    credentials: true, // necessário para cookies
+    credentials: true,
   });
 
   app.useGlobalPipes(
