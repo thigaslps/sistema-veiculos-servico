@@ -21,9 +21,7 @@ export class appRefreshTokenController {
   async validateRefreshToken(@Req() req: Request) {
     try {
       const authToken = req.cookies.authToken;
-      console.log(authToken)
       const user = await this.appRefreshTokenService.validateRefreshToken(authToken);
-      console.log(user)
       return new ApiResponse('success', 'Token válido', user);
     } catch (error) {
       throw error;

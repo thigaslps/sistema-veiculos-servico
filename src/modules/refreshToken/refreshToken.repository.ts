@@ -7,7 +7,6 @@ import jwt from 'jsonwebtoken';
 
 export class refreshTokenRepository {
   async validateRefreshToken(authToken: string) {
-    console.log(authToken)
     try {
       if (!authToken) {
         throw new BadRequestException({
@@ -30,8 +29,6 @@ export class refreshTokenRepository {
         id: (tokenValidade as any).userId,
       };
     } catch (error) {
-      console.log(error);
-
       if (
         error instanceof BadRequestException ||
         error instanceof UnauthorizedException
