@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 
 export class refreshTokenRepository {
   async validateRefreshToken(authToken: string) {
+    console.log(authToken)
     try {
       if (!authToken) {
         throw new BadRequestException({

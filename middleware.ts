@@ -15,6 +15,7 @@ export class AuthCookieMiddleware implements NestMiddleware {
     }
 
     const token = req.cookies['authToken'];
+ 
     if (!token) {
       throw new UnauthorizedException({
         status: 'token error',
