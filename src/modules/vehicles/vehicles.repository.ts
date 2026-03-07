@@ -18,9 +18,13 @@ export type VehicleReturnDto = Omit<vehicle, 'user_id' | 'value'> & {
 @Injectable()
 export class VehiclesRepository {
   // Buscar todos os veiculos
-  async getVehicles(): Promise<VehicleReturnDto[]> {
+  async getVehicles(userId: number): Promise<VehicleReturnDto[]> {
     try {
-      const vehicles = await prisma.vehicle.findMany();
+      const vehicles = await prisma.vehicle.findMany({
+        where: {
+          user_id: userId,
+        },
+      });
       const allPhotos = await prisma.vehicle_photos.findMany();
 
       const vehiclesFormatted: VehicleReturnDto[] = vehicles.map((v) => {

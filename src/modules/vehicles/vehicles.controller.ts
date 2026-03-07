@@ -10,6 +10,7 @@ import {
   Delete,
   Param,
   Put,
+  Req,
 } from '@nestjs/common';
 import { appVehicleService } from './vehicles.service';
 import { ApiResponse } from './dto/api-response.dto';
@@ -24,9 +25,10 @@ export class appVehicleController {
 
   @Get()
   @HttpCode(200)
-  async getVehicles(@Res({ passthrough: true }) res: Response) {
+  async getVehicles(@Res({ passthrough: true }) res: Response, @Req() req: Request,) {
     try {
-      const vehicles = await this.appVehicleService.getVehicles();
+      const user = req['user'];
+      const vehicles = await this.appVehicleService.getVehicles(user.id);
       return new ApiResponse(
         'success',
         'Busca de veículos realizada com sucesso!',

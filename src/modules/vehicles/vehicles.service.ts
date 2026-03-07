@@ -8,8 +8,8 @@ import { CreateVehicleDto } from './dto/create-vehicle.dto';
 export class appVehicleService {
   constructor(private readonly vehiclesRepository: VehiclesRepository) {}
 
-  async getVehicles(): Promise<VehicleReturnDto[]> {
-    const vehicles = await this.vehiclesRepository.getVehicles();
+  async getVehicles(userId: number): Promise<VehicleReturnDto[]> {
+    const vehicles = await this.vehiclesRepository.getVehicles(userId);
     return vehicles;
   }
 
