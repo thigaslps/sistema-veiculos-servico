@@ -28,6 +28,7 @@ export class appVehicleController {
   async getVehicles(@Res({ passthrough: true }) res: Response, @Req() req: Request,) {
     try {
       const user = req['user'];
+      console.log(user)
       const vehicles = await this.appVehicleService.getVehicles(user.id);
       return new ApiResponse(
         'success',
